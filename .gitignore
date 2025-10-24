@@ -1,0 +1,63 @@
+# ================================
+#           Операционные системы
+# ================================
+
+### Mac OS ###
+.DS_Store
+*.DS_Store
+**/.DS_Store
+Thumbs.db*
+
+# ================================
+#         Среды разработки (IDE)
+# ================================
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+target/
+
+### VS Code ###
+.vscode/
+
+### STS (Spring Tool Suite) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ================================
+#        Gradle (Система сборки)
+# ================================
+.gradle/
+build/
+HELP.md
+
+# ================================
+#          Артефакты и пакеты
+# ================================
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ================================
+#           Исключения
+# ================================
+!gradle/wrapper/gradle-wrapper.jar
