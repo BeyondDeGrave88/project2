@@ -6,14 +6,62 @@
 ## Описание проекта
 Проект содержит автоматизированные тесты для веб-сервиса покупки туров с использованием различных способов оплаты.
 
-## Технологии
-- Java 11
-- JUnit 5
-- Selenium WebDriver
-- Allure Reports
-- Docker
-- MySQL
+## Начало работы
+```bash
+Небольшой набор инструкций, объясняющий, как получить копию этого проекта для запуска на локальном ПК.
+```
+## Prerequisites
 
+Для использования проекта необходимо установить на ПК:
+
+- **Git** - система контроля версий
+```bash
+# Windows (через Chocolatey)
+choco install git
+
+# macOS (через Homebrew)
+brew install git
+
+# Linux (Ubuntu/Debian)
+sudo apt-get install git
+```
+- **Java 11**
+```bash
+# macOS
+brew install openjdk@11
+
+# Windows
+# Скачать с Oracle.com или использовать Chocolatey
+choco install openjdk11
+
+# Linux (Ubuntu/Debian)
+sudo apt-get install openjdk-11-jdk
+```
+
+- **Docker**
+```bash
+# macOS
+brew install --cask docker
+
+# Windows
+# Скачать Docker Desktop с официального сайта
+
+# Linux (Ubuntu/Debian)
+sudo apt-get install docker.io docker-compose
+```
+
+- Браузер **Google Chrome** по [ссылке](https://www.google.com/intl/ru/chrome/)
+
+- **IntelliJ IDEA** по [ссылке](https://www.jetbrains.com/idea/download/)
+
+## Клонирование проекта
+```bash
+git clone https://github.com/BeyondDeGrave88/project2
+```
+## Переход в директорию проекта
+```bash
+cd project2
+```
 ## Запуск проекта
 
 ### 1. Запуск контейнеров
