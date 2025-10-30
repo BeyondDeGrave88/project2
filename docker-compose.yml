@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql:8.0.41
+    restart: always
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=buy_a_trip
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=pass
