@@ -19,6 +19,7 @@ Thumbs.db*
 *.ipr
 out/
 target/
+data/
 
 ### VS Code ###
 .vscode/
