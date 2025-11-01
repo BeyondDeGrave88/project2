@@ -26,10 +26,13 @@ dependencies {
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testCompileOnly 'org.projectlombok:lombok:1.18.36'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'org.slf4j:slf4j-simple:2.0.3'
     testImplementation 'io.qameta.allure:allure-junit5:2.27.0'
     testImplementation 'io.qameta.allure:allure-selenide:2.27.0'
-
+    testImplementation 'mysql:mysql-connector-java:8.0.33'
+    testImplementation 'org.postgresql:postgresql:42.7.3'
+    testImplementation 'com.ibm.db2:jcc:11.5.9.0'
 
 }
 
