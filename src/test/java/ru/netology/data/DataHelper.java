@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import lombok.Value;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DataHelper {
@@ -37,11 +38,11 @@ public class DataHelper {
     }
 
     public static String getValidMonth() {
-        return String.format("%02d", LocalDate.now().getMonthValue());
+        return LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
     }
 
     public static String getValidYear() {
-        return String.format("%02d", LocalDate.now().getYear() % 100 + 1);
+        return LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getValidOwner() {
@@ -74,10 +75,7 @@ public class DataHelper {
     }
 
     public static String getExpiredMonth() {
-        int currentMonth = LocalDate.now().getMonthValue();
-        int expiredMonth = currentMonth - 1;
-        if (expiredMonth <= 0) expiredMonth = 12;
-        return String.format("%02d", expiredMonth);
+        return LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
     }
 
     public static CardInfo getCardNumberWithExpiredYear() {
@@ -85,13 +83,11 @@ public class DataHelper {
     }
 
     public static String getCurrentYear() {
-        int currentYear = LocalDate.now().getYear() % 100;
-        return String.format("%02d", currentYear);
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getExpiredYear() {
-        int currentYear = LocalDate.now().getYear() % 100;
-        return String.format("%02d", currentYear - 1);
+        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static CardInfo getCardNumberWithCyrillicOwner() {

@@ -3,82 +3,113 @@ package ru.netology.page;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static java.time.Duration.ofSeconds;
 
 public class PayByCardPage {
-    public SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
-    public SelenideElement monthField = $("[placeholder='08']");
-    public SelenideElement yearField = $("[placeholder='22']");
-    public SelenideElement ownerField = $(byText("Владелец")).parent().$("input");
-    public SelenideElement cvcField = $("[placeholder='999']");
+    private SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
+    private SelenideElement monthField = $("[placeholder='08']");
+    private SelenideElement yearField = $("[placeholder='22']");
+    private SelenideElement ownerField = $(byText("Владелец")).parent().$("input");
+    private SelenideElement cvcField = $("[placeholder='999']");
 
-    public SelenideElement continueButton = $(byText("Продолжить"));
-    public SelenideElement successNotification = $(".notification_status_ok");
-    public SelenideElement errorNotification = $(".notification_status_error");
+    private SelenideElement continueButton = $(byText("Продолжить"));
+    private SelenideElement successNotification = $(".notification_status_ok");
+    private SelenideElement errorNotification = $(".notification_status_error");
 
     public void fillForm(DataHelper.CardInfo cardInfo) {
-        cardNumberField.setValue(cardInfo.getCardNumber());
-        monthField.setValue(cardInfo.getMonth());
-        yearField.setValue(cardInfo.getYear());
-        ownerField.setValue(cardInfo.getOwner());
-        cvcField.setValue(cardInfo.getCvc());
-        continueButton.click();
+        setCardNumber(cardInfo.getCardNumber());
+        setMonth(cardInfo.getMonth());
+        setYear(cardInfo.getYear());
+        setOwner(cardInfo.getOwner());
+        setCvc(cardInfo.getCvc());
+        clickContinue();
+    }
+    public void fillEmptyForm() {
+        cardNumberField.clear();
+        monthField.clear();
+        yearField.clear();
+        ownerField.clear();
+        cvcField.clear();
+        clickContinue();
     }
 
+    public void setCardNumber(String value) {
+        cardNumberField.setValue(value);
+    }
+
+    public void setMonth(String value) {
+        monthField.setValue(value);
+    }
+
+    public void setYear(String value) {
+        yearField.setValue(value);
+    }
+
+    public void setOwner(String value) {
+        ownerField.setValue(value);
+    }
+
+    public void setCvc(String value) {
+        cvcField.setValue(value);
+    }
+
+    public void clickContinue() {
+        continueButton.shouldBe(visible).shouldBe(enabled).click();
+    }
+
+
     public void waitForSuccessNotification() {
-        successNotification.shouldBe(visible, ofSeconds(15));
+        successNotification.shouldBe(visible, ofSeconds(15))
+                .shouldHave(text("Операция одобрена Банком."));
     }
 
     public void waitForErrorNotification() {
-        errorNotification.shouldBe(visible, ofSeconds(15));
+        errorNotification.shouldBe(visible, ofSeconds(15))
+                .shouldHave(text("Банк отказал в проведении операции."));
+        ;
     }
+
     public void verifyFormNotSubmitted() {
         successNotification.shouldNotBe(visible);
         errorNotification.shouldNotBe(visible);
     }
 
-    public void checkCardNumberError() {
-        $(".input__sub").shouldHave(text("Неверный формат"));
+    // Универсальный метод для проверки ошибок
+    public void checkFieldError(SelenideElement field, String expectedError) {
+        field.closest(".input").$(".input__sub").shouldHave(text(expectedError));
     }
 
-    public void checkEmptyCardNumberError() {
-        cardNumberField.closest(".input").$(".input__sub").shouldHave(text("Неверный формат"));
+    // Геттеры для полей формы
+    public SelenideElement getCardNumberField() {
+        return cardNumberField;
     }
 
-    public void checkMonthError() {
-        $(".input__sub").shouldHave(text("Неверно указан срок действия карты"));
+    public SelenideElement getMonthField() {
+        return monthField;
     }
 
-    public void checkEmptyMonthError() {
-        monthField.closest(".input").$(".input__sub").shouldHave(text("Неверный формат"));
+    public SelenideElement getYearField() {
+        return yearField;
     }
 
-    public void checkYearError() {
-        $(".input__sub").shouldHave(text("Истёк срок действия карты"));
+    public SelenideElement getOwnerField() {
+        return ownerField;
     }
 
-    public void checkEmptyYearError() {
-        yearField.closest(".input").$(".input__sub").shouldHave(text("Неверный формат"));
-    }
-
-    public void checkOwnerError() {
-        $(".input__sub").shouldHave(text("Неверный формат"));
+    public SelenideElement getCvcField() {
+        return cvcField;
     }
 
     public void checkEmptyOwnerError() {
         ownerField.closest(".input").$(".input__sub").shouldHave(text("Поле обязательно для заполнения"));
     }
 
-    public void checkCvcError() {
-        $(".input__sub").shouldHave(text("Неверный формат"));
-    }
-
-    public void checkEmptyCvcError() {
-        cvcField.closest(".input").$(".input__sub").shouldHave(text("Неверный формат"));
+    public void verifyContinueButtonEnabledAndVisible() {
+        continueButton.shouldBe(visible).shouldBe(enabled);
     }
 }
+
 
