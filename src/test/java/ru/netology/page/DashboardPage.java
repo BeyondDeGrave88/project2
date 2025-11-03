@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+
 import static com.codeborne.selenide.Selenide.$;
 
 public class DashboardPage {
@@ -14,6 +15,7 @@ public class DashboardPage {
     public DashboardPage() {
         header.shouldBe(Condition.visible);
     }
+
     public PayByCardPage goToPayByCard() {
         buyButton.click();
         return new PayByCardPage();

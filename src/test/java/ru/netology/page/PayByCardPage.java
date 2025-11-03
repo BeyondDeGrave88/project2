@@ -19,21 +19,27 @@ public class PayByCardPage {
     private SelenideElement successNotification = $(".notification_status_ok");
     private SelenideElement errorNotification = $(".notification_status_error");
 
-    public void fillForm(DataHelper.CardInfo cardInfo) {
-        setCardNumber(cardInfo.getCardNumber());
-        setMonth(cardInfo.getMonth());
-        setYear(cardInfo.getYear());
-        setOwner(cardInfo.getOwner());
-        setCvc(cardInfo.getCvc());
-        clickContinue();
+    public SelenideElement getCardNumberField() {
+        return cardNumberField;
     }
-    public void fillEmptyForm() {
-        cardNumberField.clear();
-        monthField.clear();
-        yearField.clear();
-        ownerField.clear();
-        cvcField.clear();
-        clickContinue();
+
+    public SelenideElement getMonthField() {
+        return monthField;
+    }
+
+    public SelenideElement getYearField() {
+        return yearField;
+    }
+
+    public SelenideElement getOwnerField() {
+        return ownerField;
+    }
+
+    public SelenideElement getCvcField() {
+        return cvcField;
+    }
+    public String getCvcFieldValue() {
+        return cvcField.getValue();
     }
 
     public void setCardNumber(String value) {
@@ -60,6 +66,23 @@ public class PayByCardPage {
         continueButton.shouldBe(visible).shouldBe(enabled).click();
     }
 
+    public void fillForm(DataHelper.CardInfo cardInfo) {
+        setCardNumber(cardInfo.getCardNumber());
+        setMonth(cardInfo.getMonth());
+        setYear(cardInfo.getYear());
+        setOwner(cardInfo.getOwner());
+        setCvc(cardInfo.getCvc());
+        clickContinue();
+    }
+
+    public void fillEmptyForm() {
+        cardNumberField.clear();
+        monthField.clear();
+        yearField.clear();
+        ownerField.clear();
+        cvcField.clear();
+        clickContinue();
+    }
 
     public void waitForSuccessNotification() {
         successNotification.shouldBe(visible, ofSeconds(15))
@@ -69,7 +92,7 @@ public class PayByCardPage {
     public void waitForErrorNotification() {
         errorNotification.shouldBe(visible, ofSeconds(15))
                 .shouldHave(text("Банк отказал в проведении операции."));
-        ;
+
     }
 
     public void verifyFormNotSubmitted() {
@@ -77,38 +100,8 @@ public class PayByCardPage {
         errorNotification.shouldNotBe(visible);
     }
 
-    // Универсальный метод для проверки ошибок
     public void checkFieldError(SelenideElement field, String expectedError) {
         field.closest(".input").$(".input__sub").shouldHave(text(expectedError));
-    }
-
-    // Геттеры для полей формы
-    public SelenideElement getCardNumberField() {
-        return cardNumberField;
-    }
-
-    public SelenideElement getMonthField() {
-        return monthField;
-    }
-
-    public SelenideElement getYearField() {
-        return yearField;
-    }
-
-    public SelenideElement getOwnerField() {
-        return ownerField;
-    }
-
-    public SelenideElement getCvcField() {
-        return cvcField;
-    }
-
-    public void checkEmptyOwnerError() {
-        ownerField.closest(".input").$(".input__sub").shouldHave(text("Поле обязательно для заполнения"));
-    }
-
-    public void verifyContinueButtonEnabledAndVisible() {
-        continueButton.shouldBe(visible).shouldBe(enabled);
     }
 }
 

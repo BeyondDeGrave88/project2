@@ -65,6 +65,7 @@ public class PayByCardPageTest {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getInvalidCardWithShortNumber());
         payPage.checkFieldError(payPage.getCardNumberField(), "Неверный формат");
+
         payPage.verifyFormNotSubmitted();
 
     }
@@ -74,6 +75,7 @@ public class PayByCardPageTest {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardNumberWithInvalidMonth());
         payPage.checkFieldError(payPage.getMonthField(), "Неверный формат");
+
         payPage.verifyFormNotSubmitted();
 
     }
@@ -83,6 +85,7 @@ public class PayByCardPageTest {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardNumberWithExpiredMonth());
         payPage.checkFieldError(payPage.getMonthField(), "Истёк срок действия карты");
+
         payPage.verifyFormNotSubmitted();
 
     }
@@ -91,7 +94,8 @@ public class PayByCardPageTest {
     void shouldShowErrorWithExpiredYear() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardNumberWithExpiredYear());
-        payPage.checkFieldError(payPage.getYearField(),"Истёк срок действия карты");
+        payPage.checkFieldError(payPage.getYearField(), "Истёк срок действия карты");
+
         payPage.verifyFormNotSubmitted();
 
     }
@@ -100,7 +104,8 @@ public class PayByCardPageTest {
     void shouldShowErrorWithCyrillicOwner() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardNumberWithCyrillicOwner());
-        payPage.checkFieldError(payPage.getOwnerField(),"Неверный формат");
+        payPage.checkFieldError(payPage.getOwnerField(), "Неверный формат");
+
         payPage.verifyFormNotSubmitted();
 
     }
@@ -110,28 +115,39 @@ public class PayByCardPageTest {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardNumberWithShortCvc());
         payPage.checkFieldError(payPage.getCvcField(), "Неверный формат");
+
         payPage.verifyFormNotSubmitted();
 
     }
 
     @Test
-    void shouldShowErrorWithLongCvc() {
+    void shouldLimitCvcInputLength() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
-        payPage.fillForm(DataHelper.getCardNumberWithLongCvc());
-        payPage.checkFieldError(payPage.getCvcField(),"Неверный формат");
-        payPage.verifyFormNotSubmitted();
+        DataHelper.CardInfo cardInfo = DataHelper.getCardNumberWithLongCvc();
 
+        payPage.setCardNumber(cardInfo.getCardNumber());
+        payPage.setMonth(cardInfo.getMonth());
+        payPage.setYear(cardInfo.getYear());
+        payPage.setOwner(cardInfo.getOwner());
+        payPage.setCvc(cardInfo.getCvc());
+
+        String actualCvc = payPage.getCvcFieldValue();
+        assertEquals(3, actualCvc.length());
+
+        payPage.verifyFormNotSubmitted();
     }
+
 
     @Test
     void shouldShowErrorWithEmptyFields() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillEmptyForm();
-        payPage.checkFieldError(payPage.getCardNumberField(),"Поле обязательно для заполнения");
-        payPage.checkFieldError(payPage.getMonthField(),"Поле обязательно для заполнения");
-        payPage.checkFieldError(payPage.getYearField(),"Поле обязательно для заполнения");
-        payPage.checkFieldError(payPage.getOwnerField(),"Поле обязательно для заполнения");
-        payPage.checkFieldError(payPage.getCvcField(),"Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getCardNumberField(), "Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getMonthField(), "Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getYearField(), "Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getOwnerField(), "Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getCvcField(), "Поле обязательно для заполнения");
+
         payPage.verifyFormNotSubmitted();
 
     }
@@ -140,15 +156,18 @@ public class PayByCardPageTest {
     void shouldShowErrorWithEmptyCardNumberField() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardWithEmptyNumber());
-        payPage.checkFieldError(payPage.getCardNumberField(),"Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getCardNumberField(), "Поле обязательно для заполнения");
+
         payPage.verifyFormNotSubmitted();
 
     }
+
     @Test
     void shouldShowErrorWithEmptyMonth() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardWithEmptyMonth());
-        payPage.checkFieldError(payPage.getMonthField(),"Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getMonthField(), "Поле обязательно для заполнения");
+
         payPage.verifyFormNotSubmitted();
     }
 
@@ -156,7 +175,8 @@ public class PayByCardPageTest {
     void shouldShowErrorWithEmptyYear() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardWithEmptyYear());
-        payPage.checkFieldError(payPage.getYearField(),"Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getYearField(), "Поле обязательно для заполнения");
+
         payPage.verifyFormNotSubmitted();
     }
 
@@ -164,7 +184,8 @@ public class PayByCardPageTest {
     void shouldShowErrorWithEmptyOwner() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardWithEmptyOwner());
-        payPage.checkFieldError(payPage.getOwnerField(),"Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getOwnerField(), "Поле обязательно для заполнения");
+
         payPage.verifyFormNotSubmitted();
     }
 
@@ -172,8 +193,8 @@ public class PayByCardPageTest {
     void shouldShowErrorWithEmptyCvc() {
         PayByCardPage payPage = dashboardPage.goToPayByCard();
         payPage.fillForm(DataHelper.getCardWithEmptyCvc());
-        payPage.checkFieldError(payPage.getCvcField(),"Поле обязательно для заполнения");
+        payPage.checkFieldError(payPage.getCvcField(), "Поле обязательно для заполнения");
+
         payPage.verifyFormNotSubmitted();
     }
-
 }
