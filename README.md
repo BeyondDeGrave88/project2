@@ -102,6 +102,6 @@ java -jar -Dspring.profiles.active=test ./artifacts/aqa-shop.jar
 ### Документация
 - [План тестирования](https://github.com/BeyondDeGrave88/project2/blob/main/docs/Plan.md)
 
-- [Отчет о тестировании](https://github.com/BeyondDeGrave88/project2/blob/main/docs/report.md)
+- [Отчет о тестировании](https://github.com/BeyondDeGrave88/project2/blob/main/docs/Report.md)
 
-- [Баг-репорты](https://github.com/BeyondDeGrave88/project2/blob/main/docs/bugs.md)
+- [Отчет о проведенной автоматизации](https://github.com/BeyondDeGrave88/project2/blob/main/docs/Summary.md)
